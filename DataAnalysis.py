@@ -150,23 +150,6 @@ gmap.draw("map_range.html")
 #Let's take a look at the average house price over time
 average_price_over_time = sales_clean.groupby('Year')['Price'].mean()
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #Fit a linear regresion model to predict the house cost in terms of location (Latitude and Longitude)
 from sklearn.linear_model import LinearRegression
 from sklearn import cross_validation
@@ -204,7 +187,3 @@ for i in range(0,len(predictions),len(latitudes_p)):
     z.append(predictions[i: i+len(latitudes_p)])
 zaxis = [go.Heatmap(z=z)]
 plot_url = py.plot(zaxis, filename='Price_prediction_heatmap')
-
-
-
-        
