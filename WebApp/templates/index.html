@@ -1,0 +1,44 @@
+<!doctype html>
+<title>Find a house in London</title>
+<link rel=stylesheet type=text/css href='{{ url_for('static',filename='style.css')}}'>
+<div class=page>
+  <h1>Find a House in London</h1>
+
+  <div class=metanav>
+
+    <h4>
+      Select one of the following options:
+    </h4>
+
+    <form id='Selection_GMaps' method='post' action='index' >
+      <input type="radio" name="option" value="Heatmap" checked> Heatmap of the areas with greatest amount of houses sold within selected price range<br>(Red = High amount, Green = Low Amount, No color = None)<br>Grey dots show listings currently available on Zoopla within selected price range and location<br><br>
+      <input type="radio" name="option" value="Zoopla"> Map of Zoopla listings currently available within selected price range and location<br> Direct cursor over listing for details<br><br>
+      <p>
+      <input type="radio" name="property_type" value="sale" checked> Sale
+      <input type="radio" name="property_type" value="rent"> Rent (Price per week. Heatmap not available)
+      <p/>
+      <p>
+    Minimum Price (e.g. 0): <input type='text' name='minprice' /> (£)
+      </p>
+      <p>
+    Maximum Price (e.g. 400000): <input type='text' name='maxprice' /> (£)
+      </p>
+          <p>
+    Postcode (optional, e.g.  SW1): <input type='text' name='postcode' /> (£)
+      </p>
+          <p>
+    Radius (optional, in miles): <input type='text' name='radius' /> (£)
+      </p>
+      <br>
+      <input type="radio" name="option" value="Choropleth"> Choropleth map of the average house price of London's wards since 2014<br>
+      <p>
+      <input type='submit' value='Search' style="width:90px; height:33px;" />
+      </p>
+
+    <a href="http://www.zoopla.co.uk/"><img src="http://www.zoopla.co.uk/static/images/mashery/powered-by-zoopla-150x73.png" width="120" title="Property information powered by Zoopla" alt="Property information powered by Zoopla" border="0"></a>
+    </form> 
+
+
+
+  </div>
+</div>
