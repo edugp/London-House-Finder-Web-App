@@ -45,7 +45,6 @@ def index2():
 def plot_result():
 	app.state = 'input'
 
-	print('entered result')
 	#Extract relevant data
 	if app.option == 'Heatmap' or app.option == 'Zoopla':
 
@@ -53,7 +52,6 @@ def plot_result():
 
 
 		#Extract house listings from Zoopla
-		#post_code = 'SW1V 3DW'
 		radius = app.radius
 		if not radius:
 			radius = 0
@@ -67,7 +65,6 @@ def plot_result():
 		max_price = app.maxprice
 		listing_status = app.property_type
 
-		print(-1)
 		property_listings_api = 'http://api.zoopla.co.uk/api/v1/property_listings.json?'
 		if len(postcode.split()) < 2:
 			postcode_api = '&postcode=' + postcode
@@ -88,7 +85,6 @@ def plot_result():
 			response = requests.get(property_listings_api + area_api + listing_status_api + min_price_api + max_price_api + page_size_api + order_by_api +api_key).json()
 		else:
 			response = requests.get(property_listings_api + postcode_api + radius_api + listing_status_api + min_price_api + max_price_api + page_size_api + order_by_api +api_key).json()
-		print(1)
 		listing_lats = [i['latitude'] for i in response['listing']]
 		listing_longs = [i['longitude'] for i in response['listing']]
 		listing_urls = [i['details_url'] for i in response['listing']]
@@ -97,11 +93,8 @@ def plot_result():
 		listing_ids = [i['listing_id'] for i in response['listing']]
 		listing_addresses = [i['displayable_address'] for i in response['listing']]
 		listing_prices = [i['price'] for i in response['listing']]
-		print(2)
 
 		if app.option == 'Heatmap':
-
-			print('Entered heatmap')
 
 			app.df=pd.read_csv('LocationPrice.csv')
 			app.filter = ((app.df["Price"].astype('int') >= int(app.minprice)) & (app.df["Price"].astype('int') <= (int(app.maxprice)))).tolist()
@@ -154,7 +147,6 @@ def plot_result():
 
 		return render_template('map.html')
 
-	print('Entered Choropleth')
 	return render_template('choropleth.html')
 if __name__ == '__main__':
 	app.run(port=33507)
