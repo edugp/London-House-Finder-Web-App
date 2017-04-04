@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import pandas as pd
 import numpy as np
 import matplotlib
@@ -15,7 +13,6 @@ from descartes import PolygonPatch
 import fiona
 from itertools import chain
 import locale
-
 
 #Read data on house prices and their coordinates location
 prices = pd.read_csv('data/LocationPrice.csv')
@@ -49,19 +46,16 @@ m.readshapefile(
     color='none',
     zorder=2)
     
-
 #create a map dataframe
 df_map = pd.DataFrame({
     'poly': [Polygon(xy) for xy in m.london],
     'ward_name': [ward['NAME'] for ward in m.london_info]})
-
 
 #create Point objects in map coordinates from dataframe lon and lat values
 map_points_price = pd.Series(
     [Point(m(mapped_x, mapped_y)) for mapped_x, mapped_y in zip(prices['Longitude'], prices['Latitude'])])
 price = prices['Price']
 points_price = MultiPoint(list(map_points_price.values))
-
 
 #create a dictionary with price points for each postcode location point and their average price
 d_price={}
@@ -80,7 +74,6 @@ for i in d_price:
 wards_polygon = prep(MultiPolygon(list(df_map['poly'].values)))
 #just get points that fall within London's boundary
 price_points = filter(wards_polygon.contains, points_price)
-
 
 #Convenience functions for working with colour ramps and bars (made by Stephan Hügel, 2015)
 def colorbar_index(ncolors, cmap, labels=None, **kwargs):
@@ -120,8 +113,6 @@ def cmap_discretize(cmap, N):
         cdict[key] = [(indices[i], colors_rgba[i - 1, ki], colors_rgba[i, ki]) for i in xrange(N + 1)]
     return matplotlib.colors.LinearSegmentedColormap(cmap.name + "_%d" % N, cdict, 1024)
     
-
-
 #Let's make the map
 df_map['Price'] = df_map['poly'].map(lambda x: np.mean([d_price[(i.x, i.y)] for i in filter(prep(x).contains, price_points)]))
 
@@ -187,4 +178,3 @@ m.drawmapscale(
 plt.tight_layout()
 fig.set_size_inches(7.22, 5.25)
 plt.savefig('data/london_prices_choro.png', dpi=100, alpha=True)
-plt.show()
