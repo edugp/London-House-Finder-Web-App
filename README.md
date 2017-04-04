@@ -1,6 +1,6 @@
 # London-House-Finder-Web-App
 
-#Check it live at: http://londonhouseprices.herokuapp.com
+## Check it live at: http://londonhouseprices.herokuapp.com
 
 DataAnalysis.py is the script used to clean and analyze the UK Government's property transactions data (https://www.gov.uk/government/statistical-data-sets/price-paid-data-downloads) from 2014 to 2016 and obtain the coordinates of each postcode present in the data through postcodes.io API, to obtain a dataframe containing property transaction price and coordinates.
 
